@@ -4,7 +4,7 @@
   "description": "Lab: Pulling It All Together with Object and Array Iteration in JavaScript",
   "main": "index.js",
   "directories": {
-    "test": "test"
+    "test": "NODE_OPTIONS='--localstorage-file=./jest-storage' jest"
   },
   "scripts": {
     "test": "mocha --timeout 5000 -R mocha-multi --reporter-options spec=-,json=.results.json"

@@ -114,3 +114,71 @@ function gameObject() {
         },
     };
 }
+
+
+const data = gameObject()
+
+function numPointsScored(playerName) {
+    if (data["home"]["players"][playerName]) {
+        return data["home"]["players"][playerName]["points"];
+    }
+
+    if (data["away"]["players"][playerName]) {
+        return data["away"]["players"][playerName]["points"];
+    }
+}
+
+
+function shoeSize(playerName) {
+    return data["home"]["players"][playerName]
+        ?data["home"]["players"][playerName]["shoe"]
+         :data["away"]["players"][playerName]["shoe"];
+}
+
+
+function teamColors(teamName) {
+    return data[data["home"]["teamName"] === teamName ? "home" : "away"]["colors"];
+}
+
+
+function teamNames() {
+    return [
+        data["home"]["teamName"],
+        data["away"]["teamName"]
+    ];
+}
+
+
+function playerNumbers(teamName) {
+    return Object.values(data[data["home"]["teamName"] === teamName ? "home" : "away"]["players"])
+                 .map(player => player["number"]);
+}
+
+
+
+function playerStats(playerName) {
+    return data["home"]["players"][playerName] || data["away"]["players"][playerName];
+}
+
+let homeArr = [...Object.entries(data.home.players), ...Object.entries(data.away.players)];
+
+
+
+const shoes = homeArr.map(([playerName, shoe])=>{
+    return [playerName, shoe.shoe]
+})
+
+
+let largest = 0
+let player=''
+
+for (let [name, shoeSize] of shoes){
+    if(shoeSize > largest){
+        largest = shoeSize;
+        player = name;
+    }
+}
+
+
+return (data["home"]["players"][player] || data["away"]["players"][player]) 
+       ["rebounds"];
